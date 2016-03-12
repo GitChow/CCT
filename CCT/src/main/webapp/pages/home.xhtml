@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>CCT</title>
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{request.contextPath}/imgs/favicon.ico" />
+</h:head>
+
+<h:body>
+	<h:outputStylesheet name="default.css" />
+
+
+	<h:form enctype="multipart/form-data">
+
+
+		<center>
+			<p:commandButton value="Refresh" update="result" icon="ui-icon-check"
+				style="height: 40px;width: 35%;"
+				actionListener="#{pageAnalyser.updateAll()}" />
+			<p:dataTable id="result" var="p" value="#{pageAnalyser.result}"
+				style="width:75%">
+				<f:facet name="header">
+					<h:outputText style="font-size:20px"
+						value="CNY | SGD Exchange Rate Comparision Tool" />
+				</f:facet>
+				<p:column headerText="Provider"
+					style="font-size:25px;text-align: center;vertical-align: middle;">
+					<h:outputText style="font-size:25px" value="#{p.name}" />
+				</p:column>
+				<p:column headerText="SGD -> CNY" sortBy="#{p.sellRate}"
+					style="font-size:25px;text-align: center;padding: 12px;">
+					<h:outputText style="font-size:50px" value="#{p.sellRate}" />
+				</p:column>
+				<p:column headerText="CNY -> SGD" sortBy="#{p.buyRate}"
+					style="font-size:25px;text-align: center;padding: 12px;">
+					<h:outputText style="font-size:50px" value="#{p.buyRate}" />
+				</p:column>
+			</p:dataTable>
+
+		</center>
+	</h:form>
+
+	<p:ajaxStatus
+		style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+		<f:facet name="start">
+			<p:graphicImage value="/imgs/loading.gif" />
+		</f:facet>
+
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+
+</h:body>
+
+
+</html>
